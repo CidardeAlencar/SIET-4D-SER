@@ -3,36 +3,113 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 15vmin;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  margin: 3vmin;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  border-bottom: #1360fc 7px solid;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header .title{
+  margin: 0 0 2vmin 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-main{
+  background-color: #282c34;
+  /* border: #1360fc 2px solid; */
+  max-width: 70%;
+  min-height: 400px;
+  margin: auto;
+  margin-top: 50px; 
+  padding: 50px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.App-button button{
+ padding: 10px 30px;
+ color: rgb(0, 0, 0);
+ background-color: #0056b3 ;
+ border-radius: 20px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+ border: solid 2px black;
+}
+.App-button button:hover {
+  background-color: #58ff4f;
+}
+.App-button button:disabled {
+  background-color: #ccc; /* Color de fondo cuando está deshabilitado */
+  color: #666; /* Color del texto cuando está deshabilitado */
+  cursor: not-allowed; /* Cursor en forma de no permitido */
+}
+
+.App-button button:disabled:hover {
+  background-color: #ccc; /* Color de fondo cuando está deshabilitado y se pasa el ratón */
+}
+
+.card{
+  color: white;
+  max-width: 80%;
+}
+
+.card-content{
+  text-align: justify;
+}
+.card-question{
+  font-weight: bold;
+}
+
+.card .radio{
+  display: none;
+}
+
+.card-pictures{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card .card-option{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.form{
+ display: flex;
+ flex-direction: column;
+ width: 60vmin;
+}
+
+.form input{
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 20px;
+}
+.form select{
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; 
+  background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>') no-repeat right 10px center;
+  background-color: white;
+  background-size: 10px;
 }
