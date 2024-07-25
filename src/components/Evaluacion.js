@@ -10,7 +10,7 @@ function Evaluacion() {
   };
 
   return (
-    <div>
+    <div className='card'>
       <h2>Evaluación</h2>
       <form
         onSubmit={(e) => {

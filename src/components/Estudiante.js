@@ -18,6 +18,7 @@ function Estudiante() {
 
     const dispatch = useDispatch();
     const studentType = useSelector((state) => state.studentType);
+    const studentData = useSelector((state) => state.studentData);
 
     const handleStudentTypeChange = (e) => {
         dispatch(setStudentType(e.target.value));
@@ -44,11 +45,7 @@ function Estudiante() {
             src={nuevo}
             alt="Estudiante Nuevo"
             onClick={() => setStudentType('nuevo')}
-            style={{
-              border: studentType === 'nuevo' ? '2px solid blue' : '2px solid transparent',
-              cursor: 'pointer',
-              width: '150px'
-            }}
+            className={`card-img ${studentType === 'nuevo' ? 'selected' : ''}`}
           />
           Estudiante Nuevo
         </label>
@@ -65,11 +62,7 @@ function Estudiante() {
             src={antiguo}
             alt="Estudiante Antiguo"
             onClick={() => setStudentType('antiguo')}
-            style={{
-              border: studentType === 'antiguo' ? '2px solid red' : '2px solid transparent',
-              cursor: 'pointer',
-              width: '150px'
-            }}
+            className={`card-img ${studentType === 'antiguo' ? 'selected' : ''}`}
           />
           Estudiante Antiguo
         </label>
@@ -77,12 +70,11 @@ function Estudiante() {
       )}
       {studentType === 'nuevo' && (
         <form className='form'>
-          <input type="text" name="nombre" placeholder="Nombre" onChange={handleInputChange} />
-          <input type="text" name="apellido" placeholder="Apellido" onChange={handleInputChange} />
-          <input type="text" name="carnet" placeholder="Carnet de Identidad" onChange={handleInputChange} />
-          <input type="text" name="saga" placeholder="Codigo Saga" onChange={handleInputChange} />
-          {/* <input type="text" name="carrera" placeholder="Carrera" onChange={handleInputChange} /> */}
-          <select name="carrera" onChange={handleInputChange}>
+          <input type="text" name="nombre" placeholder="Nombre(s)" value={studentData.nombre} onChange={handleInputChange} />
+          <input type="text" name="apellido" placeholder="Apellido(s)" value={studentData.apellido} onChange={handleInputChange} />
+          <input type="text" name="carnet" placeholder="Carnet de Identidad" value={studentData.carnet} onChange={handleInputChange} />
+          <input type="text" name="saga" placeholder="Codigo Saga" value={studentData.saga} onChange={handleInputChange} />
+          <select name="carrera" value={studentData.carrera} onChange={handleInputChange}>
             <option value="">Selecciona una carrera</option>
             {carreras.map((carrera, index) => (
               <option key={index} value={carrera}>{carrera}</option>
@@ -92,7 +84,7 @@ function Estudiante() {
       )}
       {studentType === 'antiguo' && (
         <form className='form'>
-          <input type="text" name="carnet" placeholder="Buscar por Carnet de Identidad" onChange={handleInputChange} />
+           <input type="text" name="carnet" placeholder="Buscar por Carnet de Identidad" value={studentData.carnet} onChange={handleInputChange} />
         </form>
       )}
     </div>

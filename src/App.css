@@ -47,6 +47,7 @@
  cursor: pointer;
  transition: background-color 0.3s ease;
  border: solid 2px black;
+ margin: 0 10px;
 }
 .App-button button:hover {
   background-color: #58ff4f;
@@ -65,12 +66,61 @@
   color: white;
   max-width: 80%;
 }
-
 .card-content{
   text-align: justify;
 }
-.card-question{
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
   font-weight: bold;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox .checkmark {
+  position: relative;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 5px;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.custom-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }
 
 .card .radio{
@@ -89,6 +139,42 @@
   align-items: center;
   justify-content: center;
   margin: 0 20px;
+}
+
+.card-img {
+  cursor: pointer;
+  width: 150px;
+  border: 2px solid transparent;
+  transition: border 0.3s ease, transform 0.3s ease;
+}
+
+.card-img:hover {
+  transform: scale(1.05);
+}
+
+.card-option:nth-child(1) .card-img:hover {
+  border-color: blue;
+}
+
+.card-option:nth-child(2) .card-img:hover {
+  border-color: red;
+}
+
+.student-data {
+  padding: 10px;
+  background-color: gray;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.student-data p {
+  margin: 5px 0;
+  font-size: 18px;
+  
+}
+
+.student-data p strong {
+  font-weight: bold;
 }
 
 .form{
