@@ -63,12 +63,15 @@ function App() {
       try {
         const studentDoc = doc(db, 'students', studentData.carnet);
         const docSnap = await getDoc(studentDoc);
-  
+        
         if (docSnap.exists()) {
           Swal.fire({
             icon: 'warning',
             title: 'Documento ya existe',
             text: 'Los datos del carnet ya están registrados.',
+            customClass: {
+              confirmButton: 'custom-warning-button'
+            }
           });
           return currentSection;
         } else {
@@ -77,6 +80,9 @@ function App() {
             icon: 'success',
             title: 'Datos guardados',
             text: 'Los datos del estudiante se han guardado exitosamente.',
+            customClass: {
+              confirmButton: 'custom-confirm-button'
+            }
           });
         }
       } catch (error) {
@@ -84,6 +90,9 @@ function App() {
           icon: 'error',
           title: 'Error',
           text: `Error al guardar los datos: ${error.message}`,
+          customClass: {
+            confirmButton: 'custom-error-button'
+          }
         });
         return currentSection;
       }
@@ -149,7 +158,7 @@ function App() {
               Atrás
             </button>
           )}
-          {section !== 'Resultados' && (
+          {section !== 'Resultados' && section !== 'Evaluación' &&(
             <button 
               // onClick={() => dispatch(setSection(nextSection(section)))} 
               onClick={handleNextSection}

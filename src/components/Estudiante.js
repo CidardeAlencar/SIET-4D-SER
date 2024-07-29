@@ -10,8 +10,14 @@ const carreras = [
   'Ingeniería de Sistemas',
   'Ingeniería Civil',
   'Ingeniería Industrial',
-  'Ingeniería Electrónica',
-  'Ingeniería Mecátronica'
+  'Ingeniería en Sistemas Electrónicos',
+  'Ingeniería Mecátronica',
+  'Ingeniería Geográfica',
+  'Ingeniería Comercial',
+  'Ingeniería Ambiental',
+  'Ingeniería Petrolera',
+  'Ingeniería en Telecomunicaciones',
+  'Ingeniería Financiera'
 ];
 
 function Estudiante() {

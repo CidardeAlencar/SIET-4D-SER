@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 function Resultados() {
     const evaluationResults = useSelector((state) => state.evaluationResults);
   return (
-    <div>
-        <h2>Resultados</h2>
+    <div className='card'>
+        <h2>Resultado</h2>
         <pre>{JSON.stringify(evaluationResults, null, 2)}</pre>
     </div>
   )

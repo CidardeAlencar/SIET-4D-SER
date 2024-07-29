@@ -9,6 +9,7 @@ const initialState = {
     carnet: '',
     saga: '',
     carrera: '',
+    // nota:''
   },
   evaluationResults: {}
 };
@@ -19,7 +20,7 @@ const formReducer = (state = initialState, action) => {
       return { ...state, section: action.payload };
     case SET_STUDENT_TYPE:
       return { ...state, studentType: action.payload };
-    case 'SET_STUDENT_DATA':
+    case SET_STUDENT_DATA:
       return {
         ...state,
         studentData: {
