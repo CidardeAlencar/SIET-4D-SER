@@ -1,6 +1,6 @@
 import {React, useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setEvaluationResults, setStudentData } from '../actions';
+import { setEvaluationResults} from '../actions';
 import { questions, shuffleArray } from './preguntas';
 import Swal from 'sweetalert2';
 import { db } from '../firebase';
@@ -106,7 +106,7 @@ function Evaluacion() {
       if (result.isConfirmed) {
         const score = calculateScore();
         // const timestamp = new Date().toISOString();
-        const timeZone = 'America/La_Paz';
+        // const timeZone = 'America/La_Paz';
         const timestamp = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
         try {
           const studentDoc = doc(db, 'evaluations', studentData.carnet);
@@ -115,6 +115,7 @@ function Evaluacion() {
             icon: 'success',
             title: 'Evaluación Completada',
             text: `Tu puntuación es: ${score}`,
+            confirmButtonText: 'Finalizar',
             customClass: {
               confirmButton: 'custom-confirm-button'
             }
