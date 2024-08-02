@@ -19,7 +19,7 @@ function Verificar({onCheckboxChange}) {
         <div className='student-data'>
           <p><strong>Nombre:</strong> {studentData.nombre}</p>
           <p><strong>Apellido:</strong> {studentData.apellido}</p>
-          <p><strong>Carnet de Identidad:</strong> {studentData.carnet}</p>
+          <p><strong>CI:</strong> {studentData.carnet}</p>
           <p><strong>Código Saga:</strong> {studentData.saga}</p>
           <p><strong>Carrera:</strong> {studentData.carrera}</p>
         </div>
