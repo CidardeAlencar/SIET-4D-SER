@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSection, setStudentData } from './actions';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 
 //secciones
 import Introducción from './components/Introduccion';
-import Estudiante from './components/Estudiante'; 
+import Estudiante from './components/Estudiante';
 import Verificar from './components/Verificar';
 import Evaluacion from './components/Evaluacion';
 import Resultados from './components/Resultados';
@@ -35,9 +35,6 @@ function App() {
   const dispatch = useDispatch();
   const [isIntroductionChecked, setIsIntroductionChecked] = useState(false);
   const [isVerifyChecked, setIsVerifyChecked] = useState(false);
-
-
-  const location = useLocation();
 
   const isFormValid = () => {
     return Object.values(studentData).every(value => value.trim() !== '');
@@ -167,11 +164,9 @@ function App() {
       <header className="App-header">     
         <img src={logo} className="App-logo" alt="logo" />
         <h3 className='title'>Formulario de Evaluación y Registro</h3>
-        {location.pathname !== '/admin' && (
-              <Link to="/login" className="login-icon">
-                <FaSignInAlt size={20} />
-              </Link>
-            )}
+        <Link to="/login" className="login-icon">
+          <FaSignInAlt size={20} />
+        </Link>
         {/* Solucionar cerrar sesion en el Admin al presionar el login */}
         {/* <nav>
           <Link to="/">Home</Link>
