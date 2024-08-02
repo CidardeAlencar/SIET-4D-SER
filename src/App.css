@@ -66,6 +66,10 @@
   background-color: #ccc; /* Color de fondo cuando está deshabilitado y se pasa el ratón */
 }
 
+.login-icon{
+  color: white;
+}
+
 .card{
   color: white;
   max-width: 80%;
