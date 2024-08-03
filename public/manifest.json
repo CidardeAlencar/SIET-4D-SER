@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SIET-4D",
+  "name": "Sitema de instruccion y evaluacion de tiro en cuarta dimension",
   "icons": [
     {
       "src": "favicon.ico",
