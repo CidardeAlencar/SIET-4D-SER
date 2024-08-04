@@ -2,7 +2,7 @@ import {React, useState, useEffect} from 'react';
 import { signOut } from 'firebase/auth';
 import { auth,db } from '../firebase'; 
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -11,13 +11,41 @@ const Admin = () => {
   const rowsPerPage = 5;
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const studentsSnapshot = await getDocs(collection(db, 'students'));
-        const studentsList = studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const studentsSnapshot = await getDocs(collection(db, 'students'));
+  //       const studentsList = studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-        const evaluationsSnapshot = await getDocs(collection(db, 'evaluations'));
+  //       const evaluationsSnapshot = await getDocs(collection(db, 'evaluations'));
+  //       const evaluationsList = evaluationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  //       // Combina los datos de las dos colecciones
+  //       const combinedData = studentsList.map(student => {
+  //         const evaluation = evaluationsList.find(evaluation => evaluation.id === student.id);
+  //         return {
+  //           ...student,
+  //           score: evaluation ? evaluation.score : null,
+  //           practical: evaluation ? evaluation.practical : null,
+  //           timestamp: evaluation ? evaluation.timestamp : null,
+  //         };
+  //       });
+  //       combinedData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  //       setData(combinedData);
+  //     } catch (error) {
+  //       console.error('Error fetching data from Firestore:', error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+
+  useEffect(() => {
+    const unsubscribeStudents = onSnapshot(collection(db, 'students'), (studentsSnapshot) => {
+      const studentsList = studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      const unsubscribeEvaluations = onSnapshot(collection(db, 'evaluations'), (evaluationsSnapshot) => {
         const evaluationsList = evaluationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
         // Combina los datos de las dos colecciones
@@ -32,14 +60,14 @@ const Admin = () => {
         });
         combinedData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         setData(combinedData);
-      } catch (error) {
-        console.error('Error fetching data from Firestore:', error);
-      }
-    };
+      });
 
-    fetchData();
+      return () => unsubscribeEvaluations();
+    });
+
+    return () => unsubscribeStudents();
   }, []);
-
+  
   const handleLogout = async () => {
     try {
       await signOut(auth);
