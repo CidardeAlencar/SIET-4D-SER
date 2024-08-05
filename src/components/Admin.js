@@ -3,12 +3,18 @@ import { signOut } from 'firebase/auth';
 import { auth,db } from '../firebase'; 
 import { useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
+import { FaPrint } from 'react-icons/fa';
+import PrintComponent from './PrintComponent';
+
+
+
 
 const Admin = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const rowsPerPage = 5;
+  const [selectedRow, setSelectedRow] = useState(null);
 
 
   // useEffect(() => {
@@ -67,7 +73,7 @@ const Admin = () => {
 
     return () => unsubscribeStudents();
   }, []);
-  
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -104,6 +110,22 @@ const Admin = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
+  // const handlePrint = (row) => {
+  //   // Crea una nueva ventana
+  //   const printWindow = window.open('', '_blank');
+  //   if (printWindow) {
+  //     printWindow.document.write('<html><head><title>Imprimir</title></head><body>');
+  //     printWindow.document.write(`<h1>Detalle de la Evaluación</h1>`);
+  //     printWindow.document.write(`<p><strong>Nombre:</strong> ${row.nombre} ${row.apellido}</p>`);
+  //     printWindow.document.write(`<p><strong>Nota Teórica:</strong> ${row.score}</p>`);
+  //     printWindow.document.write(`<p><strong>Nota Práctica:</strong> ${row.practical}</p>`);
+  //     printWindow.document.write(`<p><strong>Fecha:</strong> ${row.timestamp}</p>`);
+  //     printWindow.document.write('</body></html>');
+  //     printWindow.document.close(); // Cierra el documento
+  //     printWindow.print(); // Abre el diálogo de impresión
+  //   }
+  // };
+
   return (
     <div className='admin-container'>
       
@@ -116,6 +138,7 @@ const Admin = () => {
             <th>Nota Teórica</th>
             <th>Nota Práctica</th>
             <th>Fecha</th>
+            {/* <th></th> */}
           </tr>
         </thead>
         <tbody>
@@ -125,6 +148,12 @@ const Admin = () => {
               <td>{row.score}</td>
               <td>{row.practical}</td>
               <td>{row.timestamp}</td>
+              <td>
+              <FaPrint 
+                  onClick={() => { setSelectedRow(row); }}
+                  className='printIcon'
+                  title="Imprimir"
+                /></td>
             </tr>
           ))}
         </tbody>
@@ -148,7 +177,7 @@ const Admin = () => {
       </div>
       <button className='logout-button' onClick={handleLogout}>Cerrar sesión</button>
 
-
+      {selectedRow && <PrintComponent row={selectedRow} />}
       
     </div>
   );

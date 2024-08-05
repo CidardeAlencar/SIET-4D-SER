@@ -163,7 +163,7 @@ function App() {
     <div className="App">
       <header className="App-header">     
         <img src={logo} className="App-logo" alt="logo" />
-        <h3 className='title'>Formulario de Evaluación y Registro</h3>
+        <h3 className='title'>Formulario de Registro y Evaluación</h3>
         <Link to="/login" className="login-icon">
           <FaSignInAlt size={20} />
         </Link>
