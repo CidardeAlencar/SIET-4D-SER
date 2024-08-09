@@ -3,7 +3,7 @@ import { signOut } from 'firebase/auth';
 import { auth,db } from '../firebase'; 
 import { useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { FaPrint } from 'react-icons/fa';
+import { FaPrint, FaEye } from 'react-icons/fa';
 import PrintComponent from './PrintComponent';
 
 
@@ -15,36 +15,6 @@ const Admin = () => {
   const [data, setData] = useState([]);
   const rowsPerPage = 5;
   const [selectedRow, setSelectedRow] = useState(null);
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const studentsSnapshot = await getDocs(collection(db, 'students'));
-  //       const studentsList = studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-  //       const evaluationsSnapshot = await getDocs(collection(db, 'evaluations'));
-  //       const evaluationsList = evaluationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-  //       // Combina los datos de las dos colecciones
-  //       const combinedData = studentsList.map(student => {
-  //         const evaluation = evaluationsList.find(evaluation => evaluation.id === student.id);
-  //         return {
-  //           ...student,
-  //           score: evaluation ? evaluation.score : null,
-  //           practical: evaluation ? evaluation.practical : null,
-  //           timestamp: evaluation ? evaluation.timestamp : null,
-  //         };
-  //       });
-  //       combinedData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-  //       setData(combinedData);
-  //     } catch (error) {
-  //       console.error('Error fetching data from Firestore:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
 
   useEffect(() => {
@@ -61,6 +31,8 @@ const Admin = () => {
             ...student,
             score: evaluation ? evaluation.score : null,
             practical: evaluation ? evaluation.practical : null,
+            pospie: evaluation ? evaluation.pospie : null,
+            posrod: evaluation ? evaluation.posrod : null,
             timestamp: evaluation ? evaluation.timestamp : null,
           };
         });
@@ -84,16 +56,6 @@ const Admin = () => {
     }
   };
 
-  // const data = [
-  //   { name: 'Juan Pérez', theoretical: 90, practical: 85, date: '2024-07-30' },
-  //   { name: 'María López', theoretical: 95, practical: 88, date: '2024-07-30' },
-  //   { name: 'Carlos Sánchez', theoretical: 80, practical: 82, date: '2024-07-29' },
-  //   { name: 'Ana García', theoretical: 92, practical: 89, date: '2024-07-28' },
-  //   { name: 'Luis Fernández', theoretical: 85, practical: 87, date: '2024-07-27' },
-  //   { name: 'Sofía Martínez', theoretical: 88, practical: 90, date: '2024-07-26' },
-  //   // Más datos pueden ser añadidos aquí
-  // ];
-
   // Calcula las filas a mostrar en la página actual
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
@@ -110,54 +72,50 @@ const Admin = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
-  // const handlePrint = (row) => {
-  //   // Crea una nueva ventana
-  //   const printWindow = window.open('', '_blank');
-  //   if (printWindow) {
-  //     printWindow.document.write('<html><head><title>Imprimir</title></head><body>');
-  //     printWindow.document.write(`<h1>Detalle de la Evaluación</h1>`);
-  //     printWindow.document.write(`<p><strong>Nombre:</strong> ${row.nombre} ${row.apellido}</p>`);
-  //     printWindow.document.write(`<p><strong>Nota Teórica:</strong> ${row.score}</p>`);
-  //     printWindow.document.write(`<p><strong>Nota Práctica:</strong> ${row.practical}</p>`);
-  //     printWindow.document.write(`<p><strong>Fecha:</strong> ${row.timestamp}</p>`);
-  //     printWindow.document.write('</body></html>');
-  //     printWindow.document.close(); // Cierra el documento
-  //     printWindow.print(); // Abre el diálogo de impresión
-  //   }
-  // };
-
   return (
     <div className='admin-container'>
       
       <h1 className='admin-title'>Administrador</h1>
-      
-      <table className='admin-table'>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Nota Teórica</th>
-            <th>Nota Práctica</th>
-            <th>Fecha</th>
-            {/* <th></th> */}
-          </tr>
-        </thead>
-        <tbody>
-          {currentRows.map((row, index) => (
-            <tr key={index}>
-              <td className='first'>{row.nombre} {row.apellido}</td>
-              <td>{row.score}</td>
-              <td>{row.practical}</td>
-              <td>{row.timestamp}</td>
-              <td>
-              <FaPrint 
-                  onClick={() => { setSelectedRow(row); }}
-                  className='printIcon'
-                  title="Imprimir"
-                /></td>
+      <div className='table-responsive'>
+        <table className='admin-table'>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Nota Teórica</th>
+              <th>Nota Práctica</th>
+              <th>Posición de pie</th>
+              <th>Posición de rodilla</th>
+              <th>Fecha</th>
+              {/* <th></th> */}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentRows.map((row, index) => (
+              <tr key={index}>
+                <td className='first'>{row.nombre} {row.apellido}</td>
+                <td>{row.score && row.score.length > 0 ? row.score[row.score.length - 1] : 0} / 10</td>
+                <td>{row.practical && row.practical.length > 0 ? row.practical[row.practical.length - 1] : 0} / 30</td>
+                <td>{row.pospie && row.pospie.length > 0 ? row.pospie[row.pospie.length - 1] : 0} / 10</td>
+                <td>{row.posrod && row.posrod.length > 0 ? row.posrod[row.posrod.length - 1] : 0} / 10</td>
+                <td>{row.timestamp}</td>
+                <td>
+                  <FaPrint 
+                    onClick={() => { setSelectedRow(row); }}
+                    className='printIcon'
+                    title="Imprimir"
+                  />
+                  <FaEye 
+                    onClick={() => { setSelectedRow(row); }}
+                    className='viewIcon'
+                    title="Ver más detalles"
+                  />
+                </td>
+                
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className='pagination'>
         <button 
           onClick={handlePreviousPage} 
@@ -178,7 +136,6 @@ const Admin = () => {
       <button className='logout-button' onClick={handleLogout}>Cerrar sesión</button>
 
       {selectedRow && <PrintComponent row={selectedRow} />}
-      
     </div>
   );
 };

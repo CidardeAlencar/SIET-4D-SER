@@ -4,7 +4,7 @@ import { setEvaluationResults} from '../actions';
 import { questions, shuffleArray } from './preguntas';
 import Swal from 'sweetalert2';
 import { db } from '../firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { format} from 'date-fns-tz';
 
 function Evaluacion() {
@@ -61,11 +61,41 @@ function Evaluacion() {
   };
   const handleSubmit = async(e) => {
     const score = calculateScore();
-    // const timeZone = 'America/La_Paz';
+    const practical = 0;
+    const pospie = 0;
+    const posrod = 0;
+
     const timestamp = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
     try {
-      const studentDoc = doc(db, 'evaluations', studentData.carnet);
-      await setDoc(studentDoc, { answers, score, timestamp });
+      const studentDocRef = doc(db, 'evaluations', studentData.carnet);
+      //await setDoc(studentDoc, { answers, score, timestamp });
+      const studentDocSnap = await getDoc(studentDocRef);
+
+      if (studentDocSnap.exists()) {
+        // Si el documento ya existe, actualiza el arreglo de puntajes
+        const data = studentDocSnap.data();
+        const newScores = data.score ? [...data.score, score] : [score];
+        const newPractical = data.practical ? [...data.practical, practical] : [practical];
+        const newPospie = data.pospie ? [...data.pospie, pospie] : [pospie];
+        const newPosrod = data.posrod ? [...data.posrod, posrod] : [posrod];
+        await updateDoc(studentDocRef, {
+          score: newScores,
+          practical: newPractical,
+          pospie: newPospie,
+          posrod: newPosrod,
+          timestamp: timestamp
+        });
+    } else {
+        // Si el documento no existe, crea uno nuevo con el arreglo de puntajes y el timestamp
+        await setDoc(studentDocRef, {
+          score: [score],
+          practical: [practical],
+          pospie: [pospie],
+          posrod: [posrod],
+          timestamp: timestamp
+      });
+    }
+
       Swal.fire({
         icon: 'success',
         title: 'Evaluación Completada',
@@ -104,33 +134,34 @@ function Evaluacion() {
       }
     }).then(async(result) => {
       if (result.isConfirmed) {
-        const score = calculateScore();
-        // const timestamp = new Date().toISOString();
-        // const timeZone = 'America/La_Paz';
-        const timestamp = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
-        try {
-          const studentDoc = doc(db, 'evaluations', studentData.carnet);
-          await setDoc(studentDoc, { answers, score, timestamp });
-          Swal.fire({
-            icon: 'success',
-            title: 'Evaluación Completada',
-            text: `Tu puntuación es: ${score}`,
-            confirmButtonText: 'Finalizar',
-            customClass: {
-              confirmButton: 'custom-confirm-button'
-            }
-          }).then(() => {
-            window.location.reload();
-          });
-          // dispatch(setStudentData({ ...studentData, nota: score }));
-          dispatch(setEvaluationResults({ answers, score, timestamp}));
-        } catch (error) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: `Error al guardar los datos: ${error.message}`,
-          });
-        }
+        // const score = calculateScore();
+        // // const timestamp = new Date().toISOString();
+        // // const timeZone = 'America/La_Paz';
+        // const timestamp = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
+        // try {
+        //   const studentDoc = doc(db, 'evaluations', studentData.carnet);
+        //   await setDoc(studentDoc, { answers, score, timestamp });
+        //   Swal.fire({
+        //     icon: 'success',
+        //     title: 'Evaluación Completada',
+        //     text: `Tu puntuación es: ${score}`,
+        //     confirmButtonText: 'Finalizar',
+        //     customClass: {
+        //       confirmButton: 'custom-confirm-button'
+        //     }
+        //   }).then(() => {
+        //     window.location.reload();
+        //   });
+        //   // dispatch(setStudentData({ ...studentData, nota: score }));
+        //   dispatch(setEvaluationResults({ answers, score, timestamp}));
+        // } catch (error) {
+        //   Swal.fire({
+        //     icon: 'error',
+        //     title: 'Error',
+        //     text: `Error al guardar los datos: ${error.message}`,
+        //   });
+        // }
+        await handleSubmit();
       }
     });
   };

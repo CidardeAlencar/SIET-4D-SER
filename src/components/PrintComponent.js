@@ -93,7 +93,7 @@ const PrintComponent = ({ row }) => {
                     <h3 class='title'>Formulario de Registro y Evaluación</h3>
                 </header>
                 <main class='Admin-container'>
-                  <h1>Detalles del Estudiante</h1>
+                  <h1>Datos del Estudiante</h1>
                   <table class='admin-table'>
                     <tr>
                       <th>Nombre</th>
@@ -101,20 +101,34 @@ const PrintComponent = ({ row }) => {
                     </tr>
                     <tr>
                       <th>Nota Teórica</th>
-                      <td>${row.score}
-                      <span class="status ${row.score > 5 ? 'aprobado' : 'reprobado'}">
-                        ${row.score > 5 ? 'APROBADO' : 'REPROBADO'}
+                      <td>${row.score && row.score.length > 0 ? row.score[row.score.length - 1] : 0}
+                      <span class="status ${row.score && row.score.length > 0 ? (row.score[row.score.length - 1] > 5 ? 'aprobado' : 'reprobado') : 'reprobado'}">
+                        ${row.score && row.score.length > 0 ? (row.score[row.score.length - 1] > 5 ? 'APROBADO' : 'REPROBADO') : 'REPROBADO'}
                       </span></td>
                     </tr>
                     <tr>
                       <th>Nota Práctica</th>
-                      <td>${row.practical}
-                      <span class="status ${row.practical > 17 ? 'aprobado' : 'reprobado'}">
-                        ${row.practical > 17 ? 'APROBADO' : 'REPROBADO'}
+                      <td>${row.practical && row.practical.length > 0 ? row.practical[row.practical.length - 1] : 0}
+                      <span class="status ${row.practical && row.practical.length > 0 ? (row.practical[row.practical.length - 1] > 17 ? 'aprobado' : 'reprobado') : 'reprobado'}">
+                        ${row.practical && row.practical.length > 0 ? (row.practical[row.practical.length - 1] > 17 ? 'APROBADO' : 'REPROBADO') : 'REPROBADO'}
                       </span></td>
                     </tr>
                     <tr>
-                      <th>Fecha</th>
+                      <th>Posición de pie</th>
+                      <td>${row.pospie && row.pospie.length > 0 ? row.pospie[row.pospie.length - 1] : 0}
+                      <span class="status ${row.pospie && row.pospie.length > 0 ? (row.pospie[row.pospie.length - 1] > 0 ? 'aprobado' : 'reprobado') : 'reprobado'}">
+                        ${row.pospie && row.pospie.length > 0 ? (row.pospie[row.pospie.length - 1] > 0 ? 'APROBADO' : 'REPROBADO') : 'REPROBADO'}
+                      </span></td>
+                    </tr>
+                    <tr>
+                      <th>Posición de rodilla</th>
+                      <td>${row.posrod && row.posrod.length > 0 ? row.posrod[row.posrod.length - 1] : 0}
+                      <span class="status ${row.posrod && row.posrod.length > 0 ? (row.posrod[row.posrod.length - 1] > 0 ? 'aprobado' : 'reprobado') : 'reprobado'}">
+                        ${row.posrod && row.posrod.length > 0 ? (row.posrod[row.posrod.length - 1] > 0 ? 'APROBADO' : 'REPROBADO') : 'REPROBADO'}
+                      </span></td>
+                    </tr>
+                    <tr>
+                      <th>Fecha de Evaluación</th>
                       <td>${row.timestamp}</td>
                     </tr>
                   </table>

@@ -20,7 +20,10 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="spinner-container">
+      <div className="spinner"></div>
+        <h1>Loading...</h1>
+      </div>;
   }
 
   return (
