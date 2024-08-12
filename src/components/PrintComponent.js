@@ -129,7 +129,7 @@ const PrintComponent = ({ row }) => {
                     </tr>
                     <tr>
                       <th>Fecha de Evaluación</th>
-                      <td>${row.timestamp}</td>
+                      <td>${row.timestamp && row.timestamp.length > 0 ? row.timestamp[row.timestamp.length - 1] : '-'}</td>
                     </tr>
                   </table>
                 </main>

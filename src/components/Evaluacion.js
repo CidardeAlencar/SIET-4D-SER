@@ -64,7 +64,6 @@ function Evaluacion() {
     const practical = 0;
     const pospie = 0;
     const posrod = 0;
-
     const timestamp = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
     try {
       const studentDocRef = doc(db, 'evaluations', studentData.carnet);
@@ -78,12 +77,13 @@ function Evaluacion() {
         const newPractical = data.practical ? [...data.practical, practical] : [practical];
         const newPospie = data.pospie ? [...data.pospie, pospie] : [pospie];
         const newPosrod = data.posrod ? [...data.posrod, posrod] : [posrod];
+        const newTimestamp = data.timestamp ? [...data.timestamp, timestamp] : [timestamp];
         await updateDoc(studentDocRef, {
           score: newScores,
           practical: newPractical,
           pospie: newPospie,
           posrod: newPosrod,
-          timestamp: timestamp
+          timestamp: newTimestamp
         });
     } else {
         // Si el documento no existe, crea uno nuevo con el arreglo de puntajes y el timestamp
@@ -92,7 +92,7 @@ function Evaluacion() {
           practical: [practical],
           pospie: [pospie],
           posrod: [posrod],
-          timestamp: timestamp
+          timestamp: [timestamp]
       });
     }
 

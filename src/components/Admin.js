@@ -1,13 +1,11 @@
-import {React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
-import { auth,db } from '../firebase'; 
+import { auth, db } from '../firebase'; 
 import { useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { FaPrint, FaEye } from 'react-icons/fa';
 import PrintComponent from './PrintComponent';
-
-
-
+import DetailsPopup from './DetailsPopup';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -15,7 +13,8 @@ const Admin = () => {
   const [data, setData] = useState([]);
   const rowsPerPage = 5;
   const [selectedRow, setSelectedRow] = useState(null);
-
+  const [selectedRowForDetails, setSelectedRowForDetails] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const unsubscribeStudents = onSnapshot(collection(db, 'students'), (studentsSnapshot) => {
@@ -36,7 +35,12 @@ const Admin = () => {
             timestamp: evaluation ? evaluation.timestamp : null,
           };
         });
-        combinedData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        // combinedData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        combinedData.sort((a, b) => {
+          const aLastTimestamp = a.timestamp && a.timestamp.length > 0 ? new Date(a.timestamp[a.timestamp.length - 1]) : new Date(0);
+          const bLastTimestamp = b.timestamp && b.timestamp.length > 0 ? new Date(b.timestamp[b.timestamp.length - 1]) : new Date(0);
+          return bLastTimestamp - aLastTimestamp;
+        });
         setData(combinedData);
       });
 
@@ -56,12 +60,10 @@ const Admin = () => {
     }
   };
 
-  // Calcula las filas a mostrar en la página actual
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
 
-  // Calcula el número total de páginas
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
   const handlePreviousPage = () => {
@@ -72,10 +74,28 @@ const Admin = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
+  const handleViewDetails = (row) => {
+    setSelectedRowForDetails(row);
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    
+    // Sincroniza `selectedRow` si la fila seleccionada para detalles es la misma
+    if (selectedRowForDetails === selectedRow) {
+      setSelectedRow(null);
+    }
+  };
+
+  const handlePrint = (row) => {
+    setSelectedRow(row);
+    // Aquí puedes implementar la lógica de impresión
+  };
+
   return (
     <div className='admin-container'>
-      
-      <h1 className='admin-title'>Administrador</h1>
+      <h1 className='admin-title'>ADMINISTRACIÓN</h1>
       <div className='table-responsive'>
         <table className='admin-table'>
           <thead>
@@ -86,7 +106,6 @@ const Admin = () => {
               <th>Posición de pie</th>
               <th>Posición de rodilla</th>
               <th>Fecha</th>
-              {/* <th></th> */}
             </tr>
           </thead>
           <tbody>
@@ -97,20 +116,20 @@ const Admin = () => {
                 <td>{row.practical && row.practical.length > 0 ? row.practical[row.practical.length - 1] : 0} / 30</td>
                 <td>{row.pospie && row.pospie.length > 0 ? row.pospie[row.pospie.length - 1] : 0} / 10</td>
                 <td>{row.posrod && row.posrod.length > 0 ? row.posrod[row.posrod.length - 1] : 0} / 10</td>
-                <td>{row.timestamp}</td>
+                <td>{row.timestamp && row.timestamp.length > 0 ? row.timestamp[row.timestamp.length - 1] : 0}</td>
+                {/* <td>{row.timestamp}</td> */}
                 <td>
                   <FaPrint 
-                    onClick={() => { setSelectedRow(row); }}
+                    onClick={() => handlePrint(row)}
                     className='printIcon'
                     title="Imprimir"
                   />
                   <FaEye 
-                    onClick={() => { setSelectedRow(row); }}
+                    onClick={() => handleViewDetails(row)}
                     className='viewIcon'
                     title="Ver más detalles"
                   />
                 </td>
-                
               </tr>
             ))}
           </tbody>
@@ -136,6 +155,13 @@ const Admin = () => {
       <button className='logout-button' onClick={handleLogout}>Cerrar sesión</button>
 
       {selectedRow && <PrintComponent row={selectedRow} />}
+
+      {showPopup && 
+        <DetailsPopup
+          row={selectedRowForDetails} 
+          onClose={handleClosePopup} 
+          onPrint={() => handlePrint(selectedRowForDetails)} 
+        />}
     </div>
   );
 };
