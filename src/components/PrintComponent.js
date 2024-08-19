@@ -82,6 +82,20 @@ const PrintComponent = ({ row }) => {
                 .status.reprobado {
                   color: red;
                 }
+                .course-details p{
+                  margin: 2px;
+                }
+                .signature-container {
+                  text-align: center;
+                  margin-top: 70px;
+                }
+
+                .signature-line {
+                  width: 200px;
+                  margin: 10px auto;
+                  border-bottom: 1px solid #000;
+                }
+
               }
 
             </style>
@@ -90,15 +104,17 @@ const PrintComponent = ({ row }) => {
             <div class="App">
                 <header class="App-header">
                     <img src="${logo}" class="App-logo" alt="logo" />
-                    <h3 class='title'>Formulario de Registro y Evaluación</h3>
+                      <div class="course-details">
+                        <p><strong>Nombre:</strong> ${row.nombre} ${row.apellido}</p>
+                        <p><strong>Carrera:</strong> ${row.carrera}</p>
+                        <p><strong>Asignatura:</strong> Materia de Tiro</p>
+                        <p><strong>Código:</strong> ${row.saga}</p>
+                        <p><strong>Fecha:</strong> ${row.timestamp[0]}</p>
+                      </div>
                 </header>
                 <main class='Admin-container'>
                   <h1>Datos del Estudiante</h1>
                   <table class='admin-table'>
-                    <tr>
-                      <th>Nombre</th>
-                      <td>${row.nombre} ${row.apellido}</td>
-                    </tr>
                     <tr>
                       <th>Nota Teórica</th>
                       <td>${row.score && row.score.length > 0 ? row.score[row.score.length - 1] : 0}
@@ -133,6 +149,10 @@ const PrintComponent = ({ row }) => {
                     </tr>
                   </table>
                 </main>
+                <div class="signature-container">
+                    <div class="signature-line"></div>
+                    <p>Firma del Estudiante</p>
+                  </div>
             </div>
           </body>
         </html>

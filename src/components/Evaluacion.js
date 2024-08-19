@@ -11,7 +11,7 @@ function Evaluacion() {
   const dispatch = useDispatch();
   const studentData = useSelector((state) => state.studentData);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(120);
+  const [timeLeft, setTimeLeft] = useState(180);
   const [answers, setAnswers] = useState({
     q1: '',
     q2: '',

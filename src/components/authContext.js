@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   if (loading) {
     return <div className="spinner-container">
       <div className="spinner"></div>
-        <h1>Loading...</h1>
+        <h1>Cargando...</h1>
       </div>;
   }
 

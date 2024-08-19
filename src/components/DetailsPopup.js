@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import logo from '../assets/emi.png';
 
 const DetailsPopup = ({ row, onClose, onPrint }) => {
-  // Crear una referencia para el contenido del popup
   const contentRef = useRef();
 
   const handlePrint = () => {
@@ -11,7 +10,7 @@ const DetailsPopup = ({ row, onClose, onPrint }) => {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
-    window.location.reload(); // Para evitar problemas de re-renderizado
+    window.location.reload();
   };
 
   return (
