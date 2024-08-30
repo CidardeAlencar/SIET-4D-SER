@@ -15,7 +15,7 @@ import Login from './components/Login';
 
 //assets
 import logo from './assets/emi.png';
-import { FaSignInAlt } from 'react-icons/fa';
+import { FaUserShield, FaBook } from 'react-icons/fa';
 
 // firebase
 import { doc, setDoc, getDoc} from 'firebase/firestore';
@@ -26,6 +26,7 @@ import Swal from 'sweetalert2';
 import Admin from './components/Admin';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './components/authContext';
+import Instruccion from './components/Instruccion';
 
 
 function App() {
@@ -162,11 +163,18 @@ function App() {
     <Router>
     <div className="App">
       <header className="App-header">     
-        <img src={logo} className="App-logo" alt="logo" />
-        <h3 className='title'>Formulario de Registro y Evaluación</h3>
-        <Link to="/login" className="login-icon">
-          <FaSignInAlt size={20} />
+        <Link to="/">
+          <img src={logo} className="App-logo" alt="logo" />
         </Link>
+        <h3 className='title'>Formulario de Registro y Evaluación</h3>
+        <div className='icon-row'>
+          <Link to="/login" className="login-icon">
+            <FaUserShield size={35} />
+          </Link>
+          <Link to="/instruccion" className="login-icon">
+            <FaBook size={30} />
+          </Link>
+        </div>
         {/* Solucionar cerrar sesion en el Admin al presionar el login */}
         {/* <nav>
           <Link to="/">Home</Link>
@@ -203,6 +211,12 @@ function App() {
          <Route path="/login" element={
             <div className='App-admin'>
               <Login />
+            </div>
+          } />
+          <Route path="/instruccion" element={
+            // <div className='App-admin'>
+            <div>  
+              <Instruccion/>
             </div>
           } />
           {/* <Route path="/admin" element={

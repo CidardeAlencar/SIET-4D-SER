@@ -70,6 +70,17 @@
   color: white;
 }
 
+.login-icon:hover {
+  color: #007BFF; 
+}
+
+.icon-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
 .card{
   color: white;
   max-width: 80%;
@@ -572,4 +583,48 @@
   .popup-buttons {
     display: none; /* Ocultar botones al imprimir */
   }
+}
+
+
+.instruccion-container {
+  width: 100%;
+  /* max-width: 700px; */
+  /* margin: 50px auto; */
+  /* padding: 20px; */
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.instruccion-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.carousel .slide img {
+  border-radius: 15px;
+  filter: brightness(0.9) contrast(1.1);
+}
+
+.carousel .slide img:hover {
+  filter: brightness(1.1) contrast(1.2);
+  transform: scale(1.05);
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.carousel .control-dots .dot {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.carousel .control-dots .dot.selected {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel .legend {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 0 0 15px 15px;
 }

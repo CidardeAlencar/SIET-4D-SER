@@ -5,7 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-    background-color: #e0e0e0a8;
+    /* background-color: #e0e0e0a8; */
+  background-image: url('assets/fondo.jpg');
+  background-size: cover; /* Esto ajustará la imagen para cubrir todo el fondo */
+  background-repeat: no-repeat; /* Esto evitará que la imagen se repita */
+  background-position: center; /* Esto centrará la imagen */
+  height: 100vh;
 }
 
 code {
