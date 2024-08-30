@@ -166,7 +166,7 @@ function App() {
         <Link to="/">
           <img src={logo} className="App-logo" alt="logo" />
         </Link>
-        <h3 className='title'>Formulario de Registro y Evaluación</h3>
+        <h3 className='title'>Plataforma de Registro y Evaluación</h3>
         <div className='icon-row'>
           <Link to="/login" className="login-icon">
             <FaUserShield size={35} />
