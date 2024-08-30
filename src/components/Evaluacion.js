@@ -170,7 +170,7 @@ function Evaluacion() {
     <div className='card'>
       <h2>Evaluación</h2>
       <div className='timer'>
-        Tiempo restante: {formatTime(timeLeft)}
+        <h3> Tiempo restante: {formatTime(timeLeft)}</h3>
       </div>
       <form onSubmit={handleEvaluationSubmit}>
         {shuffledQuestions.map((question) => (
