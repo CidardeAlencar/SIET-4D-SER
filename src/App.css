@@ -74,6 +74,15 @@
   color: #007BFF; 
 }
 
+.note-icon{
+  color: black;
+  cursor: pointer;
+}
+
+.note-icon:hover {
+  color: #007BFF; 
+}
+
 .icon-row {
   display: flex;
   justify-content: space-between;
@@ -535,7 +544,7 @@
   border-radius: 5px;
   max-width: 500px;
   /* max-height: 700px; */
-  width: 100%;
+  width: 80%;
 }
 
 .details-table th,
@@ -627,4 +636,48 @@
   color: white;
   padding: 10px;
   border-radius: 0 0 15px 15px;
+}
+.note-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+}
+
+.note-popup-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label{
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea.full-width {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea.full-width {
+  resize: vertical; /* Permitir que el usuario cambie el tamaño verticalmente */
+}
+
+button {
+  margin-right: 10px;
 }

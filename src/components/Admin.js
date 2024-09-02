@@ -3,9 +3,10 @@ import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase'; 
 import { useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { FaPrint, FaEye } from 'react-icons/fa';
+import { FaPrint, FaEye, FaFileSignature } from 'react-icons/fa';
 import PrintComponent from './PrintComponent';
 import DetailsPopup from './DetailsPopup';
+import NotePopup from './NotePopup';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Admin = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedRowForDetails, setSelectedRowForDetails] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [showNotePopup, setShowNotePopup] = useState(false);
 
   useEffect(() => {
     const unsubscribeStudents = onSnapshot(collection(db, 'students'), (studentsSnapshot) => {
@@ -93,9 +95,23 @@ const Admin = () => {
     // Aquí puedes implementar la lógica de impresión
   };
 
+  const handleCreateNote = () => {
+    setShowNotePopup(true);
+  };
+
+  const handleCloseNotePopup = () => {
+    setShowNotePopup(false);
+  };
+
+  const handleSubmitNote = (noteData) => {
+    console.log('Nota guardada:', noteData);
+    setShowNotePopup(false);
+  };
+
   return (
     <div className='admin-container'>
       <h1 className='admin-title'>ADMINISTRACIÓN</h1>
+      <FaFileSignature size={25} className='note-icon' title="Crear Nota" onClick={handleCreateNote}/>
       <div className='table-responsive'>
         <table className='admin-table'>
           <thead>
@@ -162,6 +178,13 @@ const Admin = () => {
           onClose={handleClosePopup} 
           onPrint={() => handlePrint(selectedRowForDetails)} 
         />}
+
+      {showNotePopup && 
+        <NotePopup 
+          onClose={handleCloseNotePopup} 
+          onSubmit={handleSubmitNote} 
+        />}
+
     </div>
   );
 };

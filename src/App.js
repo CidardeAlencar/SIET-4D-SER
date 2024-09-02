@@ -162,17 +162,17 @@ function App() {
     <AuthProvider>
     <Router>
     <div className="App">
-      <header className="App-header">     
+      <header className="App-header">
         <Link to="/">
           <img src={logo} className="App-logo" alt="logo" />
         </Link>
         <h3 className='title'>Plataforma de Registro y Evaluación</h3>
         <div className='icon-row'>
           <Link to="/login" className="login-icon">
-            <FaUserShield size={35} />
+            <FaUserShield size={35} title="Panel de Administración"/>
           </Link>
           <Link to="/instruccion" className="login-icon">
-            <FaBook size={30} />
+            <FaBook size={30} title="Instrucción"/>
           </Link>
         </div>
         {/* Solucionar cerrar sesion en el Admin al presionar el login */}
