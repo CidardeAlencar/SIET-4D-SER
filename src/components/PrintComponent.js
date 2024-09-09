@@ -119,28 +119,28 @@ const PrintComponent = ({ row }) => {
                       <th>Nota Teórica</th>
                       <td>${row.score && row.score.length > 0 ? row.score[row.score.length - 1] : 0}
                       <span class="status ${row.score && row.score.length > 0 ? (row.score[row.score.length - 1] > 5 ? 'aprobado' : 'reprobado') : 'reprobado'}">
-                        ${row.score && row.score.length > 0 ? (row.score[row.score.length - 1] > 5 ? 'APROBADO' : 'REPROBADO') : 'REPROBADO'}
+                        ${row.score && row.score.length > 0 ? (row.score[row.score.length - 1] > 5 ? 'APROBÓ' : 'NO APROBÓ') : 'NO APROBÓ'}
                       </span></td>
                     </tr>
                     <tr>
                       <th>Nota Práctica</th>
                       <td>${row.practical && row.practical.length > 0 ? row.practical[row.practical.length - 1] : 0}
                       <span class="status ${row.practical && row.practical.length > 0 ? (row.practical[row.practical.length - 1] > 17 ? 'aprobado' : 'reprobado') : 'reprobado'}">
-                        ${row.practical && row.practical.length > 0 ? (row.practical[row.practical.length - 1] > 17 ? 'APROBADO' : 'REPROBADO') : 'REPROBADO'}
+                        ${row.practical && row.practical.length > 0 ? (row.practical[row.practical.length - 1] > 17 ? 'APROBÓ' : 'NO APROBÓ') : 'NO APROBÓ'}
                       </span></td>
                     </tr>
                     <tr>
                       <th>Posición de pie</th>
                       <td>${row.pospie && row.pospie.length > 0 ? row.pospie[row.pospie.length - 1] : 0}
                       <span class="status ${row.pospie && row.pospie.length > 0 ? (row.pospie[row.pospie.length - 1] > 0 ? 'aprobado' : 'reprobado') : 'reprobado'}">
-                        ${row.pospie && row.pospie.length > 0 ? (row.pospie[row.pospie.length - 1] > 0 ? 'APROBADO' : 'REPROBADO') : 'REPROBADO'}
+                        ${row.pospie && row.pospie.length > 0 ? (row.pospie[row.pospie.length - 1] > 0 ? 'APROBÓ' : 'NO APROBÓ') : 'NO APROBÓ'}
                       </span></td>
                     </tr>
                     <tr>
                       <th>Posición de rodilla</th>
                       <td>${row.posrod && row.posrod.length > 0 ? row.posrod[row.posrod.length - 1] : 0}
                       <span class="status ${row.posrod && row.posrod.length > 0 ? (row.posrod[row.posrod.length - 1] > 0 ? 'aprobado' : 'reprobado') : 'reprobado'}">
-                        ${row.posrod && row.posrod.length > 0 ? (row.posrod[row.posrod.length - 1] > 0 ? 'APROBADO' : 'REPROBADO') : 'REPROBADO'}
+                        ${row.posrod && row.posrod.length > 0 ? (row.posrod[row.posrod.length - 1] > 0 ? 'APROBÓ' : 'NO APROBÓ') : 'NO APROBÓ'}
                       </span></td>
                     </tr>
                     <tr>

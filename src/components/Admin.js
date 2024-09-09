@@ -129,7 +129,7 @@ const Admin = () => {
               <tr key={index}>
                 <td className='first'>{row.nombre} {row.apellido}</td>
                 <td>{row.score && row.score.length > 0 ? row.score[row.score.length - 1] : 0} / 10</td>
-                <td>{row.practical && row.practical.length > 0 ? row.practical[row.practical.length - 1] : 0} / 30</td>
+                <td>{row.practical && row.practical.length > 0 ? row.practical[row.practical.length - 1] : 0} / 25</td>
                 <td>{row.pospie && row.pospie.length > 0 ? row.pospie[row.pospie.length - 1] : 0} / 10</td>
                 <td>{row.posrod && row.posrod.length > 0 ? row.posrod[row.posrod.length - 1] : 0} / 10</td>
                 <td>{row.timestamp && row.timestamp.length > 0 ? row.timestamp[row.timestamp.length - 1] : 0}</td>

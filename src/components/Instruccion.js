@@ -9,7 +9,8 @@ import Diapositiva4 from '../assets/Diapositiva4.jpg';
 import Diapositiva5 from '../assets/Diapositiva5.jpg';
 import Diapositiva6 from '../assets/Diapositiva6.jpg';
 import Diapositiva7 from '../assets/Diapositiva7.jpg';
-import Video1 from '../assets/Video2.mp4';
+import Video1 from '../assets/Video1.mp4';
+import Video2 from '../assets/Video2.mp4';
 
 const Instruccion = () => {
   const slides = [
@@ -26,16 +27,16 @@ const Instruccion = () => {
       caption: 'Explicación o título para la imagen 2'
     },
     {
-      type: 'image',
-      src: Diapositiva3,
-      alt: 'Descripción de la imagen 3',
-      caption: 'Explicación o título para la imagen 3'
-    },
-    {
       type: 'video',
       src: Video1,
       alt: 'Descripción del video 1',
       caption: 'Explicación o título para el video 1'
+    },
+    {
+      type: 'image',
+      src: Diapositiva3,
+      alt: 'Descripción de la imagen 3',
+      caption: 'Explicación o título para la imagen 3'
     },
     {
       type: 'image',
@@ -60,12 +61,18 @@ const Instruccion = () => {
       src: Diapositiva7,
       alt: 'Descripción de la imagen 7',
       caption: 'Explicación o título para la imagen 7'
+    },
+    {
+      type: 'video',
+      src: Video2,
+      alt: 'Descripción del video 1',
+      caption: 'Explicación o título para el video 1'
     }
   ];
 
   return (
     <div className="instruccion-container">
-      <Carousel showThumbs={false} autoPlay infiniteLoop>
+      <Carousel showThumbs={false} autoPlay={false} infiniteLoop>
         {slides.map((slide, index) => (
           <div key={index}>
             {slide.type === 'image' ? (
