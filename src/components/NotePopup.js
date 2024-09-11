@@ -5,6 +5,7 @@ const NotePopup = ({ onClose, onSubmit }) => {
   const [instruido, setInstruido] = useState('');
   const [instructor, setInstructor] = useState('');
   const [recomendacion, setRecomendacion] = useState('');
+  const [observacion, setObservacion] = useState('');
 
   const handleDownload = () => {
     const doc = new jsPDF();
@@ -37,14 +38,24 @@ const NotePopup = ({ onClose, onSubmit }) => {
     doc.setTextColor(0, 102, 204);
     doc.text(instructor || 'N/A', pageWidth / 2, 50, null, null, 'center');
 
-    // Recomendaciones
+    // Observaciones
     doc.setFont('Helvetica', 'normal');
     doc.setTextColor(0, 0, 0);
-    doc.text('Recomendación:', 20, 65);
+    doc.text('Observación:', 20, 65);
     doc.setFont('Helvetica', 'italic');
     doc.setFontSize(12);
     doc.setTextColor(50, 50, 50);
-    doc.text(recomendacion || 'Sin recomendaciones.', pageWidth / 2, 75, { maxWidth: pageWidth - 40, align: 'center', lineHeightFactor: 1.5 });
+    doc.text(observacion || 'Sin observaciones.', 20, 75, { maxWidth: pageWidth - 40, align: 'left', lineHeightFactor: 1.5 });
+
+    // Recomendaciones
+    doc.setFont('Helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    doc.text('Recomendación:', 20, 110);
+    doc.setFont('Helvetica', 'italic');
+    doc.setFontSize(12);
+    doc.setTextColor(50, 50, 50);
+    doc.text(recomendacion || 'Sin recomendaciones.', 20, 120, { maxWidth: pageWidth - 40, align: 'left', lineHeightFactor: 1.5 });
+
 
     // Marca de agua
     doc.setTextColor(150, 150, 150);
@@ -61,7 +72,7 @@ const NotePopup = ({ onClose, onSubmit }) => {
     doc.save(`${instruido}.pdf`);
   };
 
-  const isFormComplete = instruido && instructor && recomendacion;
+  const isFormComplete = instruido && instructor && observacion && recomendacion;
 
   return (
     <div className='note-popup'>
@@ -84,6 +95,15 @@ const NotePopup = ({ onClose, onSubmit }) => {
               value={instructor} 
               onChange={(e) => setInstructor(e.target.value)} 
               required 
+            />
+          </div>
+          <div className='form-group'>
+            <label>Observación:</label>
+            <textarea 
+              value={observacion} 
+              onChange={(e) => setObservacion(e.target.value)} 
+              required 
+              className='full-width'
             />
           </div>
           <div className='form-group'>
