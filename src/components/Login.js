@@ -44,13 +44,8 @@ const Login = () => {
       return;
     }
 
-    const secretKey = 'clave-secreta-de-256-bits';
-
-    const encryptedUsername = CryptoJS.AES.encrypt(username, secretKey).toString();
-    const encryptedPassword = CryptoJS.AES.encrypt(password, secretKey).toString();
-
     try {
-      await signInWithEmailAndPassword(auth, encryptedUsername, encryptedPassword);
+      await signInWithEmailAndPassword(auth, username, password);
       navigate('/Admin');
     } catch (error) {
       const newAttempts = attempts + 1;
@@ -74,10 +69,10 @@ const Login = () => {
           }
         });
       }
-
+      
       console.error('Error al iniciar sesión:', error);
     }
-};
+  };
 
   return (
     <div className="login-container">
