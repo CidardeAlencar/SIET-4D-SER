@@ -11,9 +11,16 @@ import Diapositiva6 from '../assets/Diapositiva6.jpg';
 import Diapositiva7 from '../assets/Diapositiva7.jpg';
 import Video1 from '../assets/Video1.mp4';
 import Video2 from '../assets/Video2.mp4';
+import Video3 from '../assets/Video3.mp4';
 
 const Instruccion = () => {
   const slides = [
+    {
+      type: 'video',
+      src: Video3,
+      alt: 'Descripción del video 1',
+      caption: 'Explicación o título para el video 1'
+    },
     {
       type: 'image',
       src: Diapositiva1,

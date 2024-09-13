@@ -10,7 +10,7 @@ body {
   background-size: cover; /* Esto ajustará la imagen para cubrir todo el fondo */
   background-repeat: no-repeat; /* Esto evitará que la imagen se repita */
   background-position: center; /* Esto centrará la imagen */
-  height: 100vh;
+  height: 100%;
 }
 
 code {
