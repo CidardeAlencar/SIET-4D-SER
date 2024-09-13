@@ -310,7 +310,13 @@
  .timer{
   font-weight: bold;
   color: yellow;
-  /* margin-bottom: 20px; */
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
  }
 
  .App-admin{
