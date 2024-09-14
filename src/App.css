@@ -603,6 +603,7 @@
 
 .instruccion-container {
   width: 100%;
+  /* height: 100%; */
   /* max-width: 700px; */
   /* margin: 50px auto; */
   /* padding: 20px; */
@@ -686,4 +687,44 @@ textarea.full-width {
 
 button {
   margin-right: 10px;
+}
+
+.options{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+  margin: auto;
+}
+.multimedia-list {
+  list-style-type: none;
+  padding: 0 30px;
+}
+
+.multimedia-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.multimedia-thumbnail {
+  width: 100px;
+  height: 75px;
+  object-fit: cover;
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: red;
+}
+
+.popup-footer{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.popup-footer *{
+  margin: 5px 0;
 }

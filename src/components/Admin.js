@@ -3,10 +3,12 @@ import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase'; 
 import { useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { FaPrint, FaEye, FaFileSignature } from 'react-icons/fa';
+import { FaPrint, FaEye, FaFileSignature,FaPlusSquare, FaFilePowerpoint } from 'react-icons/fa';
 import PrintComponent from './PrintComponent';
 import DetailsPopup from './DetailsPopup';
 import NotePopup from './NotePopup';
+import MultimediaPopup from './multimedia';
+
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ const Admin = () => {
   const [selectedRowForDetails, setSelectedRowForDetails] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [showNotePopup, setShowNotePopup] = useState(false);
+  const [showMultimediaPopup, setShowMultimediaPopup] = useState(false);
 
   useEffect(() => {
     const unsubscribeStudents = onSnapshot(collection(db, 'students'), (studentsSnapshot) => {
@@ -55,11 +58,17 @@ const Admin = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      console.log('Cierre de sesión exitoso');
       navigate('/');
     } catch (error) {
-      console.error('Error al cerrar sesión:', error);
     }
+  };
+
+  const handleAddMultimedia = () => {
+    setShowMultimediaPopup(true);  // Mostrar el popup
+  };
+
+  const handleCloseMultimediaPopup = () => {
+    setShowMultimediaPopup(false);  // Cerrar el popup
   };
 
   const indexOfLastRow = currentPage * rowsPerPage;
@@ -111,7 +120,10 @@ const Admin = () => {
   return (
     <div className='admin-container'>
       <h1 className='admin-title'>ADMINISTRACIÓN</h1>
-      <FaFileSignature size={25} className='note-icon' title="Crear Nota" onClick={handleCreateNote}/>
+      <div className='options'>
+        <FaFileSignature size={25} className='note-icon' title="Crear Nota" onClick={handleCreateNote}/>
+        <FaFilePowerpoint size={25} className='note-icon' title="Multimedia" onClick={handleAddMultimedia} />
+      </div>
       <div className='table-responsive'>
         <table className='admin-table'>
           <thead>
@@ -184,7 +196,7 @@ const Admin = () => {
           onClose={handleCloseNotePopup} 
           onSubmit={handleSubmitNote} 
         />}
-
+      {showMultimediaPopup && <MultimediaPopup onClose={handleCloseMultimediaPopup} />}
     </div>
   );
 };
