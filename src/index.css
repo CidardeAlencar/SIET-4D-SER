@@ -1,41 +1,35 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image: url('assets/fondo.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100%;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%; /* Asegura que el fondo cubra todo el viewport */
+  height: 100%; /* El fondo cubrirá todo el viewport */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background-image: url('assets/fondo.jpg');
   background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+  background-attachment: fixed; /* Mantiene el fondo fijo al hacer scroll */
   background-repeat: no-repeat; /* Evita que la imagen se repita */
-  background-position: center; /* Centra la imagen */
+  background-position: center center; /* Centra la imagen */
   min-height: 100vh; /* Asegura que el cuerpo siempre ocupe al menos el tamaño del viewport */
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Para que el contenido pueda extenderse si es necesario */
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+footer {
+  margin-top: auto; /* Mantén el pie de página en la parte inferior si es necesario */
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

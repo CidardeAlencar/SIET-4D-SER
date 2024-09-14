@@ -3,7 +3,7 @@ import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase'; 
 import { useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { FaPrint, FaEye, FaFileSignature,FaPlusSquare, FaFilePowerpoint } from 'react-icons/fa';
+import { FaPrint, FaEye, FaFileSignature, FaFilePowerpoint } from 'react-icons/fa';
 import PrintComponent from './PrintComponent';
 import DetailsPopup from './DetailsPopup';
 import NotePopup from './NotePopup';

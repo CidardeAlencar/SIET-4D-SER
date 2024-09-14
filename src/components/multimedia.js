@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { FaTrash, FaPlus } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 import { collection, onSnapshot, deleteDoc, doc, addDoc } from 'firebase/firestore';
 import { db, storage } from '../firebase';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL,deleteObject  } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL,deleteObject  } from 'firebase/storage';
+import Swal from 'sweetalert2';
 
 const MultimediaPopup = ({ onClose }) => {
   const [multimedia, setMultimedia] = useState([]);
@@ -19,15 +20,30 @@ const MultimediaPopup = ({ onClose }) => {
 
   // Manejar la eliminación de multimedia
   const handleDelete = async (id, fileUrl) => {
-    try {
-        const storageRef = ref(storage, fileUrl);
-        await deleteObject(storageRef);
-        await deleteDoc(doc(db, 'multimedia', id));
-        console.log('Multimedia eliminada');
-    } catch (error) {
-      console.error('Error al eliminar multimedia:', error);
-    }
-
+    Swal.fire({
+      title: '¿Estás seguro de eliminar la evaluación?',
+      text: "No podrás recuperar la multimedia!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#58ff4f',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        confirmButton: 'custom-confirm-button',
+        cancelButton: 'custom-cancel-button',
+      }
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        try {
+            const storageRef = ref(storage, fileUrl);
+            await deleteObject(storageRef);
+            await deleteDoc(doc(db, 'multimedia', id));
+            console.log('Multimedia eliminada');
+        } catch (error) {
+          console.error('Error al eliminar multimedia:', error);
+        }
+      }});
   };
 
   // Manejar la adición de nueva multimedia
@@ -83,6 +99,11 @@ const handleAddMultimedia = async () => {
     setFile(event.target.files[0]);
   };
 
+  const isVideo = (title) => {
+    const videoExtensions = ['mp4', 'webm', 'ogg'];
+    const fileExtension = title.split('.').pop().toLowerCase();
+    return videoExtensions.includes(fileExtension);
+  };
 
   return (
     <div className="note-popup">
@@ -94,9 +115,23 @@ const handleAddMultimedia = async () => {
           <ul className="multimedia-list">
             {multimedia.map((item) => (
               <li key={item.id} className="multimedia-item">
-                <img src={item.url} alt={item.title} className="multimedia-thumbnail" />
-                <span>{item.title}</span>
-                <FaTrash className="delete-icon" onClick={() => handleDelete(item.id, item.url)} />
+                {isVideo(item.title) ? (
+                    <>
+                      <video controls autoPlay muted className="multimedia-thumbnail">
+                        <source src={item.url} type="video/mp4" />
+                        Tu navegador no sporta el video.
+                      </video>
+                      <span>{item.title}</span>
+                      <FaTrash className="delete-icon" onClick={() => handleDelete(item.id, item.url)} />
+                    </>
+                  ) : (
+                    <>
+                      <img src={item.url} alt={item.title} className="multimedia-thumbnail" />
+                      <span>{item.title}</span>
+                      <FaTrash className="delete-icon" onClick={() => handleDelete(item.id, item.url)} />
+                    </>
+                  )}
+                
               </li>
             ))}
           </ul>
@@ -106,8 +141,7 @@ const handleAddMultimedia = async () => {
                 <input className="" type="file" onChange={handleFileChange} />
                 <button onClick={handleAddMultimedia} className="pagination-button">Agregar Multimedia</button>
             </div>
-        
-        <button onClick={onClose} className="logout-button">Atrás</button>
+          <button onClick={onClose} className="logout-button">Atrás</button>
         </div>
       </div>
     </div>

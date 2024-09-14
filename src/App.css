@@ -607,9 +607,9 @@
   /* max-width: 700px; */
   /* margin: 50px auto; */
   /* padding: 20px; */
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
 }
 
 .instruccion-title {
@@ -618,16 +618,26 @@
   margin-bottom: 20px;
   color: #333;
 }
-
-.carousel .slide img {
-  border-radius: 15px;
+/* .carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+.carousel .slide img,
+.carousel .slide video {
+  width: 100%;         /* Limita el ancho máximo al 100% del contenedor */
+  height: auto;       /* Limita la altura máxima al 100% del contenedor */
+  object-fit: contain;     /* Mantiene las proporciones del contenido */
+  /* border-radius: 15px; */
   filter: brightness(0.9) contrast(1.1);
 }
-
-.carousel .slide img:hover {
-  filter: brightness(1.1) contrast(1.2);
-  transform: scale(1.05);
-  transition: transform 0.3s, filter 0.3s;
+.carousel .slide {
+  display: inline-block;
+  height: auto;
+  /* aqui cambiar para toda la pantalla */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .carousel .control-dots .dot {
@@ -643,6 +653,7 @@
   color: white;
   padding: 10px;
   border-radius: 0 0 15px 15px;
+  max-width: 100%;
 }
 .note-popup {
   position: fixed;

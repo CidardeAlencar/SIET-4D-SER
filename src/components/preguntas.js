@@ -54,6 +54,17 @@ export const questions = [
       ],
       correct: 'b',
     },
+    {
+      id: 'q6',
+      text: '¿Qué no se debe hacer como norma de seguridad?',
+      options: [
+        { value: 'a', text: 'Manipular el arma, Quitarse el casco, Manos sobre el cañón' },
+        { value: 'b', text: 'Apuntar hacia una zona segura, Mantener el dedo fuera del gatillo, Mantener la boca del cañón hacia abajo' },
+        { value: 'c', text: 'Respetar las órdenes de seguridad, Usar siempre protección auditiva, Cargar el arma solo en la línea de fuego' },
+        { value: 'd', text: 'Mantener el área libre de obstáculos, Mantener el control del arma en todo momento, Comprobar que el arma está descargada' },
+      ],
+      correct: 'a',
+    }    
   ];
   
   export const shuffleArray = (array) => {
@@ -65,5 +76,5 @@ export const questions = [
       [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
   
-    return array;
+    return array.slice(0, 5);
   };
