@@ -122,7 +122,7 @@ const Admin = () => {
       <h1 className='admin-title'>ADMINISTRACIÓN</h1>
       <div className='options'>
         <FaFileSignature size={25} className='note-icon' title="Crear Nota" onClick={handleCreateNote}/>
-        <FaFilePowerpoint size={25} className='note-icon' title="Multimedia" onClick={handleAddMultimedia} />
+        <FaFilePowerpoint size={25} className='note2-icon' title="Multimedia" onClick={handleAddMultimedia} />
       </div>
       <div className='table-responsive'>
         <table className='admin-table'>

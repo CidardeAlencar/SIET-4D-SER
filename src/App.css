@@ -75,11 +75,19 @@
 }
 
 .note-icon{
-  color: black;
+  color: rgb(62, 148, 68);
   cursor: pointer;
 }
 
 .note-icon:hover {
+  color: #007BFF; 
+}
+.note2-icon{
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.note2-icon:hover {
   color: #007BFF; 
 }
 
